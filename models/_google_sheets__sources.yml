@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: google_sheets # name of the source
+    schema: google_sheets # this is the schema our raw data lives in
+    database: ALUMNO18_DEV_BRONZE_DB # this is the name of our database
+
+    quoting: # al estar todo en falso no es case_sensitive. Si se pone en true si lo será para cada campo
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: { count: 24, period: hour }
+      error_after: { count: 48, period: hour }
+
+    tables:
+      - name: budget
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: _row
+          - name: product_id
+          - name: quantity
+          - name: month
+          - name: _fivetran_synced
