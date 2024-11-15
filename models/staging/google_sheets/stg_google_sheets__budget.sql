@@ -1,0 +1,1 @@
+-- En este archivo limpiamos la tabla budget. Es la primera capa de silver. 
