@@ -9,7 +9,7 @@ source as (
 interm as (
 
     select
-        promo_id,
+        lower(promo_id),
         discount,
         status,
         _fivetran_deleted,
@@ -32,7 +32,7 @@ renamed as (
 
     select
         {{ dbt_utils.generate_surrogate_key(['promo_id']) }} as promo_id,
-        lower(promo_id) as promo_name,
+        promo_id as promo_desc,
         discount,
         status,
         _fivetran_deleted,

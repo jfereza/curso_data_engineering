@@ -11,9 +11,10 @@ renamed as (
     select
         order_id,
         product_id,
+        {{ dbt_utils.generate_surrogate_key(['order_id', 'product_id']) }} as order_product_id,
         quantity,
         _fivetran_deleted,
-        _fivetran_synced
+       convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc
 
     from source
 
