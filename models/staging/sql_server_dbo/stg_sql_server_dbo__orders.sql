@@ -9,7 +9,10 @@ source as (
 interm as (
     
     select 
-        order_id,
+        order_id,    ORDER_ID, 
+    ORDER_ID, 
+    ORDER_ID, 
+
         user_id,
         address_id,
         tracking_id,
