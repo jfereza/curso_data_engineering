@@ -18,19 +18,78 @@ sources:
     tables:
 
       - name: addresses
+        
         loaded_at_field: _fivetran_synced
+        description: >
+          BLABLABLA
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - month
+              - product
+          - dbt_utils.expression_is_true:
+            expression: "col_a + col_b = total"
+        
         columns:
-          - name: address_id
+          - name: address_id          
+            description: >
+              Number of each row from google sheet.
+            tests:
+              - not_null
+              - unique
+              - dbt_utils.expression_is_true:
+                expression: " > 0"
+              - accepted_values:
+                values: ['placed', 'shipped', 'completed', 'returned']
+              - relationships:
+                to: source('sql_server_db','products')
+                field: product_id
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: date
+              - dbt_expectations.expect_column_values_to_be_in_type_list:
+                column_type_list:
+                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+          
           - name: zipcode
           - name: country
           - name: address
           - name: state
           - name: _fivetran_synced
 
+
       - name: events
+        
         loaded_at_field: _fivetran_synced
+        description: >
+          BLABLABLA
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - month
+              - product
+          - dbt_utils.expression_is_true:
+            expression: "col_a + col_b = total"
+        
         columns:
-          - name: event_id
+          - name: event_id          
+            description: >
+              Number of each row from google sheet.
+            tests:
+              - not_null
+              - unique
+              - dbt_utils.expression_is_true:
+                expression: " > 0"
+              - accepted_values:
+                values: ['placed', 'shipped', 'completed', 'returned']
+              - relationships:
+                to: source('sql_server_db','products')
+                field: product_id
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: date
+              - dbt_expectations.expect_column_values_to_be_in_type_list:
+                column_type_list:
+                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+          
           - name: page_url
           - name: event_type
           - name: user_id
@@ -40,10 +99,40 @@ sources:
           - name: order_id
           - name: _fivetran_synced
 
+
       - name: orders
+        
         loaded_at_field: _fivetran_synced
+        description: >
+          BLABLABLA
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - month
+              - product
+          - dbt_utils.expression_is_true:
+            expression: "col_a + col_b = total"
+        
         columns:
-          - name: order_id
+          - name: order_id          
+            description: >
+              Number of each row from google sheet.
+            tests:
+              - not_null
+              - unique
+              - dbt_utils.expression_is_true:
+                expression: " > 0"
+              - accepted_values:
+                values: ['placed', 'shipped', 'completed', 'returned']
+              - relationships:
+                to: source('sql_server_db','products')
+                field: product_id
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: date
+              - dbt_expectations.expect_column_values_to_be_in_type_list:
+                column_type_list:
+                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+          
           - name: shipping_service
           - name: shipping_cost
           - name: address_id
@@ -58,35 +147,155 @@ sources:
           - name: status
           - name: _fivetran_synced
 
+
       - name: order_items
+        
         loaded_at_field: _fivetran_synced
+        description: >
+          BLABLABLA
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - month
+              - product
+          - dbt_utils.expression_is_true:
+            expression: "col_a + col_b = total"
+        
         columns:
-          - name: order_id
+          - name: order_id          
+            description: >
+              Number of each row from google sheet.
+            tests:
+              - not_null
+              - unique
+              - dbt_utils.expression_is_true:
+                expression: " > 0"
+              - accepted_values:
+                values: ['placed', 'shipped', 'completed', 'returned']
+              - relationships:
+                to: source('sql_server_db','products')
+                field: product_id
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: date
+              - dbt_expectations.expect_column_values_to_be_in_type_list:
+                column_type_list:
+                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+          
           - name: product_id
           - name: quantity
           - name: _fivetran_synced
 
+
       - name: products
+        
         loaded_at_field: _fivetran_synced
+        description: >
+          BLABLABLA
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - month
+              - product
+          - dbt_utils.expression_is_true:
+            expression: "col_a + col_b = total"
+        
         columns:
-          - name: product_id
+          - name: product_id          
+            description: >
+              Number of each row from google sheet.
+            tests:
+              - not_null
+              - unique
+              - dbt_utils.expression_is_true:
+                expression: " > 0"
+              - accepted_values:
+                values: ['placed', 'shipped', 'completed', 'returned']
+              - relationships:
+                to: source('sql_server_db','products')
+                field: product_id
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: date
+              - dbt_expectations.expect_column_values_to_be_in_type_list:
+                column_type_list:
+                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+          
           - name: price
           - name: name
           - name: inventory
           - name: _fivetran_synced
 
+
       - name: promos
+        
         loaded_at_field: _fivetran_synced
+        description: >
+          BLABLABLA
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - month
+              - product
+          - dbt_utils.expression_is_true:
+            expression: "col_a + col_b = total"
+        
         columns:
-          - name: promo_id
+          - name: promo_id          
+            description: >
+              Number of each row from google sheet.
+            tests:
+              - not_null
+              - unique
+              - dbt_utils.expression_is_true:
+                expression: " > 0"
+              - accepted_values:
+                values: ['placed', 'shipped', 'completed', 'returned']
+              - relationships:
+                to: source('sql_server_db','products')
+                field: product_id
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: date
+              - dbt_expectations.expect_column_values_to_be_in_type_list:
+                column_type_list:
+                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+          
           - name: discount
           - name: status
           - name: _fivetran_synced
 
+
       - name: users
+        
         loaded_at_field: _fivetran_synced
+        description: >
+          BLABLABLA
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - month
+              - product
+          - dbt_utils.expression_is_true:
+            expression: "col_a + col_b = total"
+        
         columns:
-          - name: user_id
+          - name: user_id           
+            description: >
+              Number of each row from google sheet.
+            tests:
+              - not_null
+              - unique
+              - dbt_utils.expression_is_true:
+                expression: " > 0"
+              - accepted_values:
+                values: ['placed', 'shipped', 'completed', 'returned']
+              - relationships:
+                to: source('sql_server_db','products')
+                field: product_id
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: date
+              - dbt_expectations.expect_column_values_to_be_in_type_list:
+                column_type_list:
+                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
           - name: updated_at
           - name: address_id
           - name: last_name

@@ -16,6 +16,7 @@ sources:
 
     tables:
       - name: budget
+        
         loaded_at_field: _fivetran_synced
         description: >
           Budget for each product and month
