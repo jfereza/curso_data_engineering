@@ -13,7 +13,7 @@ sources:
     freshness:
       warn_after: { count: 24, period: hour }
       error_after: { count: 48, period: hour }
- 
+
     tables:
       - name: budget
 
@@ -30,8 +30,8 @@ sources:
               - unique
               - dbt_utils.expression_is_true:
                   expression: " > 0"
-#              - dbt_expectations.expect_column_values_to_be_of_type:
-#                  column_type: number
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: number
 
           - name: product_id
             description: >

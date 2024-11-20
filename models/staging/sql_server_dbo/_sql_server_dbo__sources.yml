@@ -15,6 +15,7 @@ sources:
       error_after: { count: 48, period: hour }
 
     tables:
+
       - name: addresses
 
         loaded_at_field: _fivetran_synced
@@ -35,7 +36,7 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: number
+                  column_type: number
 
           - name: country
             description: >
@@ -43,7 +44,7 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: address
             description: >
@@ -51,7 +52,7 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: state
             description: >
@@ -59,16 +60,16 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: _fivetran_synced
             description: >
-              _fivetran_synced.
+              fivetran_synced.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
       - name: events
 
@@ -90,14 +91,14 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: event_type
             description: >
               Type of action associated with the event.
             tests:
-              - not_null
-              - dbt_expectations.expect_column_values_to_be_of_type:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
 
           - name: user_id
@@ -105,18 +106,18 @@ sources:
               Unique identifier for each user.
             tests:
               - not_null
-              - relationships:
-                to: source('sql_server_db','users')
-                field: user_id
+              - dbt_utils.relationships_where:
+                  to: source('sql_server_db','users')
+                  field: user_id
 
           - name: product_id
             description: >
               Unique identifier for each product. Null when event_type is checkout or package_shipped.
             tests:
-              - relationships:
-                to: source('sql_server_db','products')
-                field: product_id
-                where: "product_id IS NOT NULL"
+              - dbt_utils.relationships_where:
+                  to: source('sql_server_db','products')
+                  field: product_id
+                  from_condition: orderproduct_id_id IS NOT NULL
 
           - name: session_id
             description: >
@@ -130,26 +131,27 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
           - name: order_id
             description: >
               Unique identifier of each order. Null when event_type is not checkout or package_shipped.
             tests:
-              - relationships:
-                to: source('sql_server_db','orders')
-                field: order_id
-                where: "order_id IS NOT NULL"
+              - dbt_utils.relationships_where:
+                  to: source('sql_server_db','orders')
+                  field: order_id
+                  from_condition: order_id IS NOT NULL
 
           - name: _fivetran_synced
             description: >
-              _fivetran_synced.
+              fivetran_synced.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
 
       - name: orders
 
@@ -174,7 +176,7 @@ sources:
               Cost associated with the shipping service.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: float
+                  column_type: float
 
           - name: address_id
             description: >
@@ -182,8 +184,8 @@ sources:
             tests:
               - not_null
               - relationships:
-                to: source('sql_server_db','addresses')
-                field: address_id
+                  to: source('sql_server_db','addresses')
+                  field: address_id
 
           - name: created_at
             description: >
@@ -191,8 +193,8 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
           - name: promo_id
             description: >
@@ -202,10 +204,9 @@ sources:
             description: >
               Delivery time estimated by the shipping service.
             tests:
-              - dbt_expectations.expect_column_values_to_be_in_type_list:
+            - dbt_expectations.expect_column_values_to_be_in_type_list:
                 column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
-                where: "delivered at IS NOT NULL"
+                  [null, datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
           - name: order_cost
             description: >
@@ -213,38 +214,37 @@ sources:
             tests:
               - not_null
               - dbt_utils.expression_is_true:
-                expression: " > 0"
+                  expression: " > 0"
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: float
+                  column_type: float
 
           - name: user_id
             description: >
               Unique identifier for each user.
             tests:
               - not_null
-              - relationships:
-                to: source('sql_server_db','users')
-                field: user_id
-                where: "user_id IS NOT NULL"
-
+              - dbt_utils.relationships_where:
+                  to: source('sql_server_db','users')
+                  field: user_id
+                  from_condition: user_id IS NOT - not_null
+                  
           - name: order_total
             description: >
               Total cost of the order.
             tests:
               - not_null
               - dbt_utils.expression_is_true:
-                expression: " > 0"
+                  expression: " > 0"
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: float
+                  column_type: float
 
           - name: delivered_at
             description: >
               Actual delivery time by the shipping service.
             tests:
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
-                where: "delivered at IS NOT NULL"
+                  column_type_list:
+                    [null, datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
           - name: tracking_id
             description: >
@@ -256,16 +256,17 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: _fivetran_synced
             description: >
-              _fivetran_synced.
+              fivetran_synced.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
 
       - name: order_items
 
@@ -279,27 +280,27 @@ sources:
               Unique identifier of each order.
             tests:
               - not_null
-              - relationships:
-                to: source('sql_server_db','orders')
-                field: order_id
-                where: "order_id IS NOT NULL"
+              - dbt_utils.relationships_where:
+                 to: source('sql_server_db','orders')
+                 field: order_id
+                 from_condition: order_id IS NOT NULL
 
           - name: product_id
             description: >
               Unique identifier of each product.
             tests:
               - not_null
-              - relationships:
-                to: source('sql_server_db','products')
-                field: product_id
-                where: "product_id IS NOT NULL"
+              - dbt_utils.relationships_where:
+                 to: source('sql_server_db','products')
+                 field: order_id
+                 from_condition: product_id IS NOT NULL
 
           - name: quantity
             description: >
               Number of products purchased.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: number
+                  column_type: number
 
           - name: _fivetran_synced
             description: >
@@ -307,8 +308,9 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
 
       - name: products
 
@@ -330,9 +332,9 @@ sources:
             tests:
               - not_null
               - dbt_utils.expression_is_true:
-                expression: " > 0"
+                  expression: " > 0"
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: float
+                  column_type: float
 
           - name: name
             description: >
@@ -341,23 +343,24 @@ sources:
               - not_null
               - unique
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: inventory
             description: >
               Product inventory.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: number
+                  column_type: number
 
           - name: _fivetran_synced
             description: >
-              _fivetran_synced.
+              fivetran_synced.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
 
       - name: promos
 
@@ -378,7 +381,7 @@ sources:
               Discount, in euros, on the order_cost.
             tests:
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: number
+                  column_type: number
 
           - name: status
             description: >
@@ -386,16 +389,17 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: _fivetran_synced
             description: >
-              _fivetran_synced.
+              fivetran_synced.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
 
       - name: users
 
@@ -408,8 +412,8 @@ sources:
             description: >
               Unique identifier of each user.
             tests:
-              - not_null
-              - unique
+            - not_null
+            - unique
 
           - name: updated_at
             description: >
@@ -417,8 +421,8 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
           - name: address_id
             description: >
@@ -426,8 +430,8 @@ sources:
             tests:
               - not_null
               - relationships:
-                to: source('sql_server_db','addresses')
-                field: address_id
+                  to: source('sql_server_db','addresses')
+                  field: address_id
 
           - name: last_name
             description: >
@@ -435,7 +439,7 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: created_at
             description: >
@@ -443,8 +447,8 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
           - name: phone_number
             description: >
@@ -460,7 +464,7 @@ sources:
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: varchar
+                  column_type: varchar
 
           - name: email
             description: >
@@ -468,9 +472,12 @@ sources:
 
           - name: _fivetran_synced
             description: >
-              _fivetran_synced.
+              fivetran_synced.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
-                column_type_list:
-                  [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+                  column_type_list:
+                    [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
+
+
