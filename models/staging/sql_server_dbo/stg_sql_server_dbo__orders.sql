@@ -50,7 +50,7 @@ renamed as (
             when shipping_service is null then shipping_service
             else {{ dbt_utils.generate_surrogate_key(['shipping_service']) }} 
             end as shipping_id, 
-        status,
+        {{ dbt_utils.generate_surrogate_key(['status']) }} as status_id,
         created_at_utc,
         estimated_delivery_at_utc,
         delivered_at_utc,

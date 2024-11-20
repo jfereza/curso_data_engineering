@@ -333,6 +333,19 @@ models:
         description: >
           blabla
 
+  - name: stg_sql_server_dbo__status
+    description: ""
+    columns:
+      - name: status_id
+        data_type: varchar
+        description: >
+          blablabla
+
+      - name: status
+        data_type: varchar
+        description: >
+          blablabla
+        
   - name: stg_sql_server_dbo__time
     description: >
       blabla
