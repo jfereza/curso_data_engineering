@@ -15,8 +15,8 @@ interm as (
         lower(event_type) as event_type,
         page_url,
         convert_timezone('UTC', created_at) as created_at_utc,
-        product_id,
-        order_id,
+        nullif(trim(product_id), '') as product_id, -- primero cambio los vacios o espacios por null
+        nullif(trim(order_id), '') as order_id, -- primero cambio los vacios o espacios por null
         _fivetran_deleted,
         convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc
 
@@ -33,8 +33,8 @@ renamed as (
         {{ dbt_utils.generate_surrogate_key(['event_type']) }} as event_type_id,
         page_url,
         created_at_utc,
-        nullif(trim(product_id), '') as product_id,
-        nullif(trim(order_id), '') as order_id,
+        product_id,
+        order_id,
         _fivetran_deleted,
         _fivetran_synced_utc
 

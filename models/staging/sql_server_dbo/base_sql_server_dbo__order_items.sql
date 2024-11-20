@@ -9,8 +9,8 @@ source as (
 renamed as (
 
     select
-        order_id,
-        product_id,
+        order_id, 
+        product_id, 
         quantity,
         _fivetran_deleted,
         convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc
