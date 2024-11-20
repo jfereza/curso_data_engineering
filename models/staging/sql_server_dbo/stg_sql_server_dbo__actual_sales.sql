@@ -1,3 +1,9 @@
+{{
+  config(
+    materialized='table'
+  )
+}}
+
 with 
 
 source as (
@@ -16,8 +22,8 @@ interm as (
 
     select
         A.product_id,
-        month(B.created_at)::number as month
-        A.quantity,
+        month(B.created_at)::number as month,
+        A.quantity
     from source A
     left join source2 B
         on A.order_id=B.order_id
@@ -28,8 +34,8 @@ renamed as (
 
     select
         product_id,
-        month
-        sum(quantity) as quantity,
+        month,
+        sum(quantity) as quantity
     from interm
     group by 
         1,2

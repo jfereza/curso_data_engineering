@@ -1,4 +1,9 @@
-alter session set week_start = 1;
+{{
+  config(
+    materialized='table',
+    pre_hook="alter session set week_start = 1;"
+  )
+}}
 
 with 
 
@@ -37,7 +42,6 @@ renamed as (
             end as fiscal_quarter,                   -- trimestre fiscal (puedes ajustarlo)
         week(date_day) as week,         -- semana del año
         dayofyear(date_day) as day_of_year  -- día del año
-    
     from time_spine
 
 )

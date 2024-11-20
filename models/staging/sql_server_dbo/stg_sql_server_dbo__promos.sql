@@ -1,3 +1,9 @@
+{{
+  config(
+    materialized='table'
+  )
+}}
+
 with 
 
 source as (
@@ -9,12 +15,11 @@ source as (
 interm as (
 
     select
-        lower(promo_id), -- lo pongo todo en minusculas (el hash es case sensitive)
+        lower(promo_id) as promo_id, -- lo pongo todo en minusculas (el hash es case sensitive)
         discount,
         status,
         _fivetran_deleted,
         convert_timezone('UTC',_fivetran_synced) as _fivetran_synced_UTC
-
     from source
 
     union
@@ -37,7 +42,6 @@ renamed as (
         status,
         _fivetran_deleted,
         _fivetran_synced_utc
-
     from interm
     order by discount ASC
 
