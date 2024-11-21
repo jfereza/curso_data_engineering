@@ -43,12 +43,17 @@ models:
   
     staging:
         +materialized: table
-        +database: "ALUMNO18_DEV_SILVER_DB"
+        +database: "{{ env_var('DBT_ENVIRONMENTS') }}_SILVER_DB"
+        google_sheets:
+          +schema: google_sheets
+        sql_server_dbo:
+          +schema: sql_server_dbo
     
     marts:
+      +materialized: table
+      +database: "{{ env_var('DBT_ENVIRONMENTS') }}_GOLD_DB"
       core:
-        +database: "ALUMNO18_DEV_GOLD_DB"
-        +schema: "CORE"
+        +schema: core
 
 
 
