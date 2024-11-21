@@ -14,7 +14,7 @@ source as (
 
 source2 as (
 
-    select * from {{ source('sql_server_dbo', 'orders') }}
+    select * from {{ ref('base_sql_server_dbo__orders') }}
 
 ),
 
@@ -22,7 +22,7 @@ interm as (
 
     select
         A.product_id,
-        month(B.created_at)::number as month,
+        month(B.created_at_utc)::number as month,
         A.quantity
     from source A
     left join source2 B
