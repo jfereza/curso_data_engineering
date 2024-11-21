@@ -1,7 +1,85 @@
-
 version: 2
 
 models:
+  - name: base_sql_server_dbo__orders
+    description: >
+      blabla
+    columns:
+      - name: order_id
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: user_id
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: address_id
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: tracking_id
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: shipping_service
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: status
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: created_at_utc
+        data_type: timestamp_tz
+        description: >
+          blabla
+
+      - name: estimated_delivery_at_utc
+        data_type: timestamp_tz
+        description: >
+          blabla
+
+      - name: delivered_at_utc
+        data_type: timestamp_tz
+        description: >
+          blabla
+
+      - name: order_cost
+        data_type: float
+        description: >
+          blabla
+
+      - name: shipping_cost
+        data_type: float
+        description: >
+          blabla
+
+      - name: promo_id
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: order_total
+        data_type: float
+        description: >
+          blabla
+
+      - name: _fivetran_deleted
+        data_type: boolean
+        description: >
+          blabla
+
+      - name: _fivetran_synced_utc
+        data_type: timestamp_tz
+        description: >
+          blabla
+        
   - name: stg_sql_server_dbo__addresses
     description: >
       blabla
@@ -152,17 +230,7 @@ models:
         description: >
           blabla
 
-      - name: tracking_id
-        data_type: varchar
-        description: >
-          blabla
-
-      - name: shipping_id
-        data_type: varchar
-        description: >
-          blabla
-
-      - name: status
+      - name: status_id
         data_type: varchar
         description: >
           blabla
@@ -172,22 +240,7 @@ models:
         description: >
           blabla
 
-      - name: estimated_delivery_at_utc
-        data_type: timestamp_tz
-        description: >
-          blabla
-
-      - name: delivered_at_utc
-        data_type: timestamp_tz
-        description: >
-          blabla
-
       - name: order_cost
-        data_type: float
-        description: >
-          blabla
-
-      - name: shipping_cost
         data_type: float
         description: >
           blabla
@@ -246,6 +299,40 @@ models:
         description: >
           blabla
 
+  - name: stg_sql_server_dbo__shipping_info
+    description: >
+      blabla
+    columns:
+      - name: order_id
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: tracking_id
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: shipping_service_id
+        data_type: varchar
+        description: >
+          blabla
+
+      - name: estimated_delivery_at_utc
+        data_type: timestamp_tz
+        description: >
+          blabla
+
+      - name: delivered_at_utc
+        data_type: timestamp_tz
+        description: >
+          blabla
+
+      - name: shipping_cost
+        data_type: float
+        description: >
+          blabla
+        
   - name: stg_sql_server_dbo__shipping_service
     description: >
       blabla
@@ -255,11 +342,11 @@ models:
         description: >
           blabla
 
-      - name: shipping_id
+      - name: shipping_service_id
         data_type: varchar
         description: >
           blabla
-
+          
   - name: stg_sql_server_dbo__users
     description: >
       blabla
