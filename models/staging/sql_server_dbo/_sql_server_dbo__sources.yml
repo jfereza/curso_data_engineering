@@ -385,7 +385,7 @@ sources:
 
           - name: status
             description: >
-              State of the promotion.
+              Current state of the promotion.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:

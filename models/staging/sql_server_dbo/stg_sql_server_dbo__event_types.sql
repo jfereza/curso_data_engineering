@@ -15,7 +15,7 @@ source as (
 interm as (
 
     select
-        distinct lower(event_type) as event_type
+        distinct lower(event_type) as event_type  -- me quedo con los tipos de eventos distintos y los pongo en minus
     from source
 
 ),
@@ -24,7 +24,7 @@ renamed as (
 
     select 
         event_type as event_type,
-        {{ dbt_utils.generate_surrogate_key(['event_type']) }} as event_type_id
+        {{ dbt_utils.generate_surrogate_key(['event_type']) }} as event_type_id  -- hasheo los tipos de eventos
     from interm
 )
 

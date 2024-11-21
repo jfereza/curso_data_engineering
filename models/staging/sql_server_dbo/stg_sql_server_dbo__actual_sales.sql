@@ -22,7 +22,7 @@ interm as (
 
     select
         A.product_id,
-        month(B.created_at_utc)::number as month,
+        month(B.created_at_utc)::number as month, -- las fechas solo cambian a nivel de mes
         A.quantity
     from source A
     left join source2 B

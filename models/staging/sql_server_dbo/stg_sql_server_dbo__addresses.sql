@@ -20,7 +20,7 @@ renamed as (
         country,
         address,
         state,
-        convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc
+        convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc  -- convierto la zona horaria
     from source
 
 )

@@ -20,7 +20,7 @@ renamed as (
         name as product_name,
         inventory,
         _fivetran_deleted,
-        convert_timezone('UTC',_fivetran_synced) as _fivetran_synced_UTC
+        convert_timezone('UTC',_fivetran_synced) as _fivetran_synced_UTC -- convierto la zona horaria
 
     from source
 

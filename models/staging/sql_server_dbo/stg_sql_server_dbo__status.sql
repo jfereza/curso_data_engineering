@@ -23,7 +23,7 @@ iterm as (
 renamed as (
 
     select
-        {{ dbt_utils.generate_surrogate_key(['status']) }} as status_id,
+        {{ dbt_utils.generate_surrogate_key(['status']) }} as status_id, -- hasheo el status
         status as status
     from 
         iterm 
