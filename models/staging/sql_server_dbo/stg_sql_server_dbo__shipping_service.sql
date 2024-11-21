@@ -8,14 +8,14 @@ with
 
 source as (
 
-    select * from {{ source('sql_server_dbo', 'orders') }}
+    select * from {{ ref('base_sql_server_dbo__orders') }}
 
 ),
 
 iterm as (
 
     select
-        distinct nullif(trim(shipping_service), '') as shipping_service -- primero cambio los vacios o espacios por null
+        distinct shipping_service as shipping_service 
     from 
         source 
 
@@ -28,7 +28,7 @@ renamed as (
         case -- cambio el nombre del shipping service por un hash. Si es nulo lo dejo nulo    
             when shipping_service is null then shipping_service
             else {{ dbt_utils.generate_surrogate_key(['shipping_service']) }}
-            end as shipping_id
+            end as shipping_service_id
     from 
         iterm 
 
