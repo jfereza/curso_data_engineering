@@ -19,7 +19,7 @@ sources:
 
         loaded_at_field: _fivetran_synced
         description: >
-          Budget for each product and month
+          Budget for each product and month.
 
         columns:
           - name: _row
@@ -57,7 +57,7 @@ sources:
 
           - name: _fivetran_synced
             description: >
-              Number of each row from google sheet.
+              fivetran_synced
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:

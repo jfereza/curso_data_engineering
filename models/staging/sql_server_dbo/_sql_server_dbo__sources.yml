@@ -71,6 +71,10 @@ sources:
                   column_type_list:
                     [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
+          - name: _fivetran_deleted
+            description: >
+              fivetran_deleted
+
       - name: events
 
         loaded_at_field: _fivetran_synced
@@ -151,6 +155,10 @@ sources:
               - dbt_expectations.expect_column_values_to_be_in_type_list:
                   column_type_list:
                     [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
+          - name: _fivetran_deleted
+            description: >
+              fivetran_deleted
 
 
       - name: orders
@@ -252,7 +260,7 @@ sources:
 
           - name: status
             description: >
-              Statys of the order.
+              Status of the order.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_of_type:
@@ -266,6 +274,10 @@ sources:
               - dbt_expectations.expect_column_values_to_be_in_type_list:
                   column_type_list:
                     [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
+          - name: _fivetran_deleted
+            description: >
+              fivetran_deleted
 
 
       - name: order_items
@@ -302,12 +314,16 @@ sources:
 
           - name: _fivetran_synced
             description: >
-              _fivetran_synced.
+              fivetran_synced.
             tests:
               - not_null
               - dbt_expectations.expect_column_values_to_be_in_type_list:
                   column_type_list:
                     [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
+          - name: _fivetran_deleted
+            description: >
+              fivetran_deleted
 
 
       - name: products
@@ -359,6 +375,10 @@ sources:
                   column_type_list:
                     [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
 
+          - name: _fivetran_deleted
+            description: >
+              fivetran_deleted
+
 
       - name: promos
 
@@ -397,6 +417,10 @@ sources:
               - dbt_expectations.expect_column_values_to_be_in_type_list:
                   column_type_list:
                     [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
+          - name: _fivetran_deleted
+            description: >
+              fivetran_deleted
 
 
       - name: users
@@ -476,6 +500,10 @@ sources:
               - dbt_expectations.expect_column_values_to_be_in_type_list:
                   column_type_list:
                     [datetime, Timestamp_TZ, Timestamp_LTZ, Timestamp_NTZ]
+
+          - name: _fivetran_deleted
+            description: >
+              fivetran_deleted
 
 
 

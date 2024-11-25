@@ -20,7 +20,7 @@ renamed as (
         address_id,
         nullif(trim(tracking_id), '') as tracking_id, -- cambio los vacios o espacios por null
         nullif(trim(shipping_service), '') as shipping_service, -- cambio los vacios o espacios por null
-        lower(status), -- pongo los status en minusculas
+        lower(status) as status, -- pongo los status en minusculas
         convert_timezone('UTC', created_at) as created_at_utc, -- convierto la zona horaria
         convert_timezone('UTC', estimated_delivery_at) as estimated_delivery_at_utc, -- convierto la zona horaria
         convert_timezone('UTC', delivered_at) as delivered_at_utc, -- convierto la zona horaria
