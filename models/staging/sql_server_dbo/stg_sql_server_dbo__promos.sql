@@ -15,7 +15,7 @@ source as (
 interm as (
 
     select
-        lower(promo_id) as promo_id, -- lo pongo todo en minusculas (el hash es case sensitive)
+        lower(promo_id) as promo_id, -- lo pongo todo en minusculas
         discount,
         status,
         _fivetran_deleted,

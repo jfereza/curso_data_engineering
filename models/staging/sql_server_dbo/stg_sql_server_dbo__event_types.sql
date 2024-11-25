@@ -15,7 +15,7 @@ source as (
 interm as (
 
     select
-        distinct lower(event_type) as event_type  -- me quedo con los tipos de eventos distintos y los pongo en minus
+        distinct lower(event_type) as event_type  -- selecciono los tipos de eventos distintos y los pongo en minus
     from source
 
 ),

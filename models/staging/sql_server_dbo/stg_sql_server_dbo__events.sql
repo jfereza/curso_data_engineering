@@ -21,8 +21,8 @@ interm as (
         lower(event_type) as event_type, -- pongo todos los tipos de evento en minusculas
         page_url,
         convert_timezone('UTC', created_at) as created_at_utc, -- convierto la zona horaria
-        nullif(trim(product_id), '') as product_id, -- primero cambio los vacios o espacios por null
-        nullif(trim(order_id), '') as order_id, -- primero cambio los vacios o espacios por null
+        nullif(trim(product_id), '') as product_id, -- cambio los vacios o espacios por null
+        nullif(trim(order_id), '') as order_id, -- cambio los vacios o espacios por null
         _fivetran_deleted,
         convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc  -- convierto la zona horaria
 

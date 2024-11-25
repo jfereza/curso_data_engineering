@@ -15,7 +15,7 @@ source as (
 iterm as (
 
     select
-        distinct status as status
+        distinct lower(status) as status -- selecciono los tipos de status distintos y los pongo en minus
     from source 
 
 ),

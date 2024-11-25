@@ -18,7 +18,7 @@ renamed as (
         address_id,
         zipcode,
         country,
-        address,
+        address, 
         state,
         convert_timezone('UTC', _fivetran_synced) as _fivetran_synced_utc  -- convierto la zona horaria
     from source
