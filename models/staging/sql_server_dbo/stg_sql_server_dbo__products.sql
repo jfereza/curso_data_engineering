@@ -16,7 +16,7 @@ renamed as (
 
     select
         product_id,
-        price,
+        TO_CHAR(price, '999.00') as price, -- unifico el formato del precio
         name as product_name, -- renombro la columna
         inventory,
         _fivetran_deleted,

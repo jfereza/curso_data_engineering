@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: sql_server_dbo # name of the source
-    schema: sql_server_dbo # this is the schema our raw data lives in
+    schema: sql_server_dbo_clone # this is the schema our raw data lives in
     database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB" # this is the name of our database
 
     quoting: # al estar todo en falso no es case_sensitive. Si se pone en true si lo será para cada campo
